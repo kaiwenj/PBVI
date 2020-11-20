@@ -2,16 +2,17 @@ import numpy as np
 
 class PBVI(object):
     
-    def __init__(self, improve, expand, getPolicy, V):
+    def __init__(self, improve, expand, getPolicy, V, expansionNumber):
         self.improve=improve
         self.expand=expand
         self.getPolicy=getPolicy
         self.V=V
+        self.expansionNumber=expansionNumber
         
     def __call__(self, b0):
         B=[b0]
         V=self.V
-        for i in range(3):
+        for i in range(self.expansionNumber):
             V=self.improve(V, B)
             B=self.expand(B)
         a=self.getPolicy(V, b0)
